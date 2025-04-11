@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멜론 실시간 차트</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .chart-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .chart-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1a73e8;
+        }
+        .rank {
+            font-weight: bold;
+            color: #1a73e8;
+            width: 50px;
+        }
+        .song-info {
+            margin-left: 10px;
+        }
+        .artist {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .update-time {
+            text-align: center;
+            color: #666;
+            font-size: 0.8em;
+            margin-top: 20px;
+        }
+        .chart-item {
+            transition: transform 0.2s;
+        }
+        .chart-item:hover {
+            transform: translateX(10px);
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container chart-container">
+        <div class="chart-header">
+            <h1>멜론 실시간 차트</h1>
+            <p class="update-time">매 1분마다 자동 업데이트</p>
+        </div>
+        
+        <div class="list-group">
+            {% for song in chart_data %}
+            <div class="list-group-item chart-item d-flex align-items-center">
+                <span class="rank">{{ song.rank }}</span>
+                <div class="song-info">
+                    <div class="title">{{ song.title }}</div>
+                    <div class="artist">{{ song.artist }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="update-time">
+            마지막 업데이트: {{ datetime.now().strftime('%Y-%m-%d %H:%M:%S') }}
+        </div>
+    </div>
+
+    <script>
+        // 1분마다 페이지 새로고침
+        setInterval(function() {
+            location.reload();
+        }, 60000);
+    </script>
+</body>
+</html> 
