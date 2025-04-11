@@ -108,10 +108,10 @@ def run_scheduler():
 
 @app.route('/')
 def index():
+    global chart_data
     if not chart_data and os.path.exists('last_chart_data.json'):
         try:
             with open('last_chart_data.json', 'r', encoding='utf-8') as f:
-                global chart_data
                 chart_data = json.load(f)
         except Exception as e:
             print(f"Error loading backup data: {e}")
